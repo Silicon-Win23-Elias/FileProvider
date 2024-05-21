@@ -21,7 +21,7 @@ namespace FileProvider.Functions
             {
                 if (req.Form.Files["file"] is IFormFile file)
                 {
-                    var containerName = !string.IsNullOrEmpty(req.Query["containerName"]) ? req.Query["containerName"].ToString() : "files";
+                    var containerName = !string.IsNullOrEmpty(req.Query["containername"]) ? req.Query["containername"].ToString() : "files";
 
                     var fileEntity = new FileEntity
                     {
@@ -31,7 +31,7 @@ namespace FileProvider.Functions
 
                     };
 
-                    await _fileService.SetBlobContainerAsync(fileEntity.FileName);
+                    await _fileService.SetBlobContainerAsync(containerName);
                     var filePath = await _fileService.UploadFileAsync(file, fileEntity);
                     fileEntity.FilePath = filePath;
 
